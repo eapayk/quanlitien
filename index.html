@@ -1788,7 +1788,7 @@
                 
                 <!-- Danger Zone -->
                 <div class="account-section">
-                    <h3 class="section-title"><i class="fas fa-exclamation-triangle"></i> Khu vực nguy hiểm</h3>
+                    <h3 class="section-title"><i class="fas fa-exclamation-triangle"></i> Xóa tài khoản</h3>
                     <div class="delete-account">
                         <h4><i class="fas fa-trash"></i> Xóa tài khoản</h4>
                         <p>Hành động này không thể hoàn tác. Tất cả dữ liệu của bạn sẽ bị xóa vĩnh viễn.</p>
@@ -1943,7 +1943,7 @@
         </section>
         
         <footer>
-            <p>Ứng dụng Quản Lý Chi Tiêu PWA &copy; daominhduc08tb@gmail.com</p>
+            <p>Ứng dụng Quản Lý Chi Tiêu &copy; daominhduc08tb@gmail.com</p>
             <p><small><i class="fas fa-mobile-alt"></i> Có thể cài đặt như ứng dụng di động</small></p>
         </footer>
     </div>
@@ -2310,13 +2310,7 @@
                 monthlyLimit: 0,
                 expenses: [],
                 categories: [
-                    { id: "gym", name: "Tiền tập gym", icon: "fa-dumbbell" },
-                    { id: "gas", name: "Tiền đổ xăng", icon: "fa-gas-pump" },
-                    { id: "internet", name: "Tiền mạng 4G", icon: "fa-wifi" },
-                    { id: "saving", name: "Tiền tích kiệm", icon: "fa-piggy-bank" },
-                    { id: "haircut", name: "Tiền cắt tóc", icon: "fa-cut" },
-                    { id: "food", name: "Ăn uống", icon: "fa-utensils" },
-                    { id: "shopping", name: "Mua sắm", icon: "fa-shopping-cart" }
+                  
                 ]
             };
             
@@ -2585,7 +2579,7 @@
                         });
                     })
                     .catch(error => {
-                        console.error('Service Worker đăng ký thất bại:', error);
+                        console.error('', error);
                         updatePWAStatus('');
                     });
             } else {
@@ -2743,8 +2737,8 @@
             document.getElementById('remainingAmount').textContent = formatCurrency(remaining);
             document.getElementById('expensesCount').textContent = `${expenses.length} khoản chi`;
             
-            const remainingElement = document.getElementById('remainingAmount');
-            remainingElement.style.color = remaining < 0 ? var('--danger-color') : var('--secondary-color');
+            remainingElement.style.color =remaining < 0 ? 'var(--danger-color)' : 'var(--secondary-color)';
+
             
             saveUserData();
         }
