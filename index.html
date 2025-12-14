@@ -243,6 +243,13 @@
             color: white;
             font-weight: bold;
             font-size: 1.1rem;
+            overflow: hidden;
+        }
+        
+        .user-avatar-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         
         .user-dropdown {
@@ -257,6 +264,7 @@
             display: none;
             animation: fadeIn 0.3s ease;
             overflow: hidden;
+            z-index: 1001;
         }
         
         .user-dropdown.show {
@@ -271,9 +279,9 @@
         
         .user-info .user-avatar {
             margin: 0 auto 10px;
-            width: 50px;
-            height: 50px;
-            font-size: 1.3rem;
+            width: 60px;
+            height: 60px;
+            font-size: 1.5rem;
         }
         
         .user-info h4 {
@@ -316,9 +324,192 @@
             background-color: #ffeaea;
         }
         
+        /* Account Management Page */
+        .account-management {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            margin: 20px auto;
+            max-width: 800px;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .account-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .account-header h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 2rem;
+        }
+        
+        .account-header p {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+        }
+        
+        .account-sections {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .account-section {
+            background-color: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            font-size: 1.3rem;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+        }
+        
+        .profile-picture-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .profile-picture {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            position: relative;
+            overflow: hidden;
+            border: 5px solid white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .profile-picture-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .profile-picture-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #3498db, #2ecc71);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            font-weight: bold;
+        }
+        
+        .profile-picture-actions {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .profile-picture-actions button {
+            padding: 10px 20px;
+            font-size: 0.9rem;
+        }
+        
+        .account-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        .account-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .btn-secondary {
+            background-color: #95a5a6;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #7f8c8d;
+        }
+        
+        .btn-danger {
+            background-color: #e74c3c;
+        }
+        
+        .btn-danger:hover {
+            background-color: #c0392b;
+        }
+        
+        .delete-account {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .delete-account h4 {
+            color: #721c24;
+            margin-bottom: 10px;
+        }
+        
+        .delete-account p {
+            color: #721c24;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        
         /* Hide main app when not logged in */
         .main-app {
             display: none;
+        }
+        
+        /* Back to App Button */
+        .back-to-app {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: white;
+            border: none;
+            border-radius: 50px;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            color: #2c3e50;
+            z-index: 1000;
+        }
+        
+        .back-to-app:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+            background-color: #3498db;
+            color: white;
         }
         
         /* PWA Install Button */
@@ -876,6 +1067,21 @@
                 display: none;
             }
             
+            .account-management {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .profile-picture {
+                width: 120px;
+                height: 120px;
+            }
+            
             .tab-header {
                 flex-wrap: wrap;
             }
@@ -943,19 +1149,31 @@
         <i class="fas fa-download"></i> Cài App
     </button>
     
+    <!-- Back to App Button (for account management page) -->
+    <button class="back-to-app" id="backToAppButton" style="display: none;">
+        <i class="fas fa-arrow-left"></i> Quay lại
+    </button>
+    
     <!-- User Menu -->
     <div class="user-menu" id="userMenu" style="display: none;">
         <button class="user-button" id="userButton">
-            <div class="user-avatar" id="userAvatar">U</div>
+            <div class="user-avatar" id="userAvatar">
+                <!-- Avatar image or placeholder will be inserted here -->
+            </div>
             <span id="userName">Tài khoản</span>
             <i class="fas fa-chevron-down"></i>
         </button>
         <div class="user-dropdown" id="userDropdown">
             <div class="user-info">
-                <div class="user-avatar" id="dropdownAvatar">U</div>
+                <div class="user-avatar" id="dropdownAvatar">
+                    <!-- Avatar image or placeholder will be inserted here -->
+                </div>
                 <h4 id="dropdownName">Tài khoản</h4>
                 <p id="dropdownEmail">user@example.com</p>
             </div>
+            <button class="dropdown-item" id="manageAccountBtn">
+                <i class="fas fa-user-cog"></i> Quản lý tài khoản
+            </button>
             <button class="dropdown-item" id="changePasswordBtn">
                 <i class="fas fa-key"></i> Đổi mật khẩu
             </button>
@@ -1077,7 +1295,125 @@
                         </button>
                     </form>
                     <div class="auth-links">
-                        <a href="#" id="backToApp">Quay lại ứng dụng</a>
+                        <a href="#" id="backToAppFromChangePassword">Quay lại ứng dụng</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Account Management Page -->
+    <div class="container" id="accountManagementPage" style="display: none;">
+        <div class="account-management">
+            <div class="account-header">
+                <h2><i class="fas fa-user-cog"></i> Quản lý tài khoản</h2>
+                <p>Quản lý thông tin tài khoản và cài đặt cá nhân</p>
+            </div>
+            
+            <div class="account-sections">
+                <!-- Profile Picture Section -->
+                <div class="account-section">
+                    <h3 class="section-title"><i class="fas fa-user-circle"></i> Ảnh đại diện</h3>
+                    <div class="profile-picture-container">
+                        <div class="profile-picture" id="profilePicture">
+                            <!-- Profile picture will be loaded here -->
+                        </div>
+                        <div class="profile-picture-actions">
+                            <button id="changePictureBtn">
+                                <i class="fas fa-camera"></i> Thay đổi ảnh
+                            </button>
+                            <button id="removePictureBtn" class="btn-secondary">
+                                <i class="fas fa-trash"></i> Xóa ảnh
+                            </button>
+                        </div>
+                        <input type="file" id="pictureInput" accept="image/*" style="display: none;">
+                    </div>
+                </div>
+                
+                <!-- Personal Information Section -->
+                <div class="account-section">
+                    <h3 class="section-title"><i class="fas fa-id-card"></i> Thông tin cá nhân</h3>
+                    <form class="account-form" id="personalInfoForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="accountName">Họ và tên</label>
+                                <input type="text" id="accountName" placeholder="Nhập họ và tên" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="accountUsername">Tên đăng nhập</label>
+                                <input type="text" id="accountUsername" placeholder="Nhập tên đăng nhập" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="accountEmail">Email liên kết</label>
+                            <input type="email" id="accountEmail" placeholder="Nhập email" required>
+                        </div>
+                        <div class="account-actions">
+                            <button type="button" class="btn-secondary" id="cancelPersonalInfo">
+                                <i class="fas fa-times"></i> Hủy
+                            </button>
+                            <button type="submit" id="savePersonalInfo">
+                                <i class="fas fa-save"></i> Lưu thay đổi
+                            </button>
+                        </div>
+                        <div class="auth-message" id="personalInfoMessage"></div>
+                    </form>
+                </div>
+                
+                <!-- Change Password Section -->
+                <div class="account-section">
+                    <h3 class="section-title"><i class="fas fa-key"></i> Thay đổi mật khẩu</h3>
+                    <form class="account-form" id="accountPasswordForm">
+                        <div class="form-group">
+                            <label for="accountCurrentPassword">Mật khẩu hiện tại</label>
+                            <div class="password-input">
+                                <input type="password" id="accountCurrentPassword" placeholder="Nhập mật khẩu hiện tại" required>
+                                <button type="button" class="toggle-password" data-target="accountCurrentPassword">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="accountNewPassword">Mật khẩu mới</label>
+                                <div class="password-input">
+                                    <input type="password" id="accountNewPassword" placeholder="Nhập mật khẩu mới" required minlength="6">
+                                    <button type="button" class="toggle-password" data-target="accountNewPassword">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="accountConfirmPassword">Xác nhận mật khẩu</label>
+                                <div class="password-input">
+                                    <input type="password" id="accountConfirmPassword" placeholder="Nhập lại mật khẩu mới" required minlength="6">
+                                    <button type="button" class="toggle-password" data-target="accountConfirmPassword">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="account-actions">
+                            <button type="button" class="btn-secondary" id="cancelPasswordChange">
+                                <i class="fas fa-times"></i> Hủy
+                            </button>
+                            <button type="submit" id="savePasswordChange">
+                                <i class="fas fa-save"></i> Đổi mật khẩu
+                            </button>
+                        </div>
+                        <div class="auth-message" id="passwordChangeMessage"></div>
+                    </form>
+                </div>
+                
+                <!-- Danger Zone -->
+                <div class="account-section">
+                    <h3 class="section-title"><i class="fas fa-exclamation-triangle"></i> Khu vực nguy hiểm</h3>
+                    <div class="delete-account">
+                        <h4><i class="fas fa-trash"></i> Xóa tài khoản</h4>
+                        <p>Hành động này không thể hoàn tác. Tất cả dữ liệu của bạn sẽ bị xóa vĩnh viễn.</p>
+                        <button class="btn-danger" id="deleteAccountBtn">
+                            <i class="fas fa-trash"></i> Xóa tài khoản
+                        </button>
                     </div>
                 </div>
             </div>
@@ -1230,6 +1566,8 @@
             document.getElementById('authContainer').style.display = 'block';
             document.getElementById('mainApp').style.display = 'none';
             document.getElementById('userMenu').style.display = 'none';
+            document.getElementById('accountManagementPage').style.display = 'none';
+            document.getElementById('backToAppButton').style.display = 'none';
             showLoginForm();
         }
         
@@ -1237,8 +1575,19 @@
             document.getElementById('authContainer').style.display = 'none';
             document.getElementById('mainApp').style.display = 'block';
             document.getElementById('userMenu').style.display = 'flex';
+            document.getElementById('accountManagementPage').style.display = 'none';
+            document.getElementById('backToAppButton').style.display = 'none';
             updateUserUI();
             loadUserData();
+        }
+        
+        function showAccountManagement() {
+            document.getElementById('authContainer').style.display = 'none';
+            document.getElementById('mainApp').style.display = 'none';
+            document.getElementById('userMenu').style.display = 'none';
+            document.getElementById('accountManagementPage').style.display = 'block';
+            document.getElementById('backToAppButton').style.display = 'flex';
+            loadAccountManagementData();
         }
         
         function showLoginForm() {
@@ -1259,6 +1608,7 @@
             document.getElementById('authContainer').style.display = 'block';
             document.getElementById('mainApp').style.display = 'none';
             document.getElementById('userMenu').style.display = 'none';
+            document.getElementById('accountManagementPage').style.display = 'none';
             document.getElementById('loginForm').style.display = 'none';
             document.getElementById('registerForm').style.display = 'none';
             document.getElementById('changePasswordForm').style.display = 'block';
@@ -1269,6 +1619,8 @@
             document.getElementById('loginMessage').className = 'auth-message';
             document.getElementById('registerMessage').className = 'auth-message';
             document.getElementById('changePasswordMessage').className = 'auth-message';
+            document.getElementById('personalInfoMessage').className = 'auth-message';
+            document.getElementById('passwordChangeMessage').className = 'auth-message';
         }
         
         function showAuthMessage(elementId, message, type) {
@@ -1284,11 +1636,34 @@
                 document.getElementById('dropdownName').textContent = currentUser.name;
                 document.getElementById('dropdownEmail').textContent = currentUser.email;
                 
-                // Set avatar initials
-                const initials = currentUser.name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
-                document.getElementById('userAvatar').textContent = initials;
-                document.getElementById('dropdownAvatar').textContent = initials;
+                // Update avatar
+                updateAvatar(currentUser);
             }
+        }
+        
+        function updateAvatar(user) {
+            const avatarContainers = [
+                document.getElementById('userAvatar'),
+                document.getElementById('dropdownAvatar'),
+                document.getElementById('profilePicture')
+            ];
+            
+            avatarContainers.forEach(container => {
+                if (!container) return;
+                
+                if (user.avatar) {
+                    // Show image avatar
+                    container.innerHTML = `<img src="${user.avatar}" class="user-avatar-img" alt="${user.name}">`;
+                } else {
+                    // Show placeholder with initials
+                    const initials = user.name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
+                    if (container.id === 'profilePicture') {
+                        container.innerHTML = `<div class="profile-picture-placeholder">${initials}</div>`;
+                    } else {
+                        container.innerHTML = initials;
+                    }
+                }
+            });
         }
         
         function login(emailOrUsername, password) {
@@ -1333,6 +1708,7 @@
                 email: email,
                 username: username,
                 password: password,
+                avatar: null,
                 createdAt: new Date().toISOString(),
                 monthlyLimit: 0,
                 expenses: [],
@@ -1356,6 +1732,40 @@
             return { success: true, message: 'Đăng ký thành công!' };
         }
         
+        function updatePersonalInfo(name, username, email) {
+            // Check if email is being changed and if it's already used
+            if (email !== currentUser.email) {
+                for (const userId in users) {
+                    const user = users[userId];
+                    if (user.id !== currentUser.id && user.email === email) {
+                        return { success: false, message: 'Email đã được sử dụng bởi tài khoản khác!' };
+                    }
+                }
+            }
+            
+            // Check if username is being changed and if it's already used
+            if (username !== currentUser.username) {
+                for (const userId in users) {
+                    const user = users[userId];
+                    if (user.id !== currentUser.id && user.username === username) {
+                        return { success: false, message: 'Tên đăng nhập đã được sử dụng!' };
+                    }
+                }
+            }
+            
+            // Update user info
+            currentUser.name = name;
+            currentUser.username = username;
+            currentUser.email = email;
+            
+            // Save changes
+            users[currentUser.id] = currentUser;
+            localStorage.setItem('expenseManagerUsers', JSON.stringify(users));
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            
+            return { success: true, message: 'Cập nhật thông tin thành công!' };
+        }
+        
         function changePassword(currentPassword, newPassword) {
             if (currentUser.password !== currentPassword) {
                 return { success: false, message: 'Mật khẩu hiện tại không đúng!' };
@@ -1371,6 +1781,47 @@
             localStorage.setItem('currentUser', JSON.stringify(currentUser));
             
             return { success: true, message: 'Đổi mật khẩu thành công!' };
+        }
+        
+        function updateAvatarImage(imageDataUrl) {
+            currentUser.avatar = imageDataUrl;
+            users[currentUser.id] = currentUser;
+            localStorage.setItem('expenseManagerUsers', JSON.stringify(users));
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            
+            updateAvatar(currentUser);
+            return { success: true, message: 'Cập nhật ảnh đại diện thành công!' };
+        }
+        
+        function removeAvatar() {
+            currentUser.avatar = null;
+            users[currentUser.id] = currentUser;
+            localStorage.setItem('expenseManagerUsers', JSON.stringify(users));
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            
+            updateAvatar(currentUser);
+            return { success: true, message: 'Đã xóa ảnh đại diện!' };
+        }
+        
+        function deleteAccount() {
+            if (confirm("Bạn có chắc chắn muốn xóa tài khoản? Tất cả dữ liệu sẽ bị mất vĩnh viễn và không thể khôi phục!")) {
+                const password = prompt("Vui lòng nhập mật khẩu để xác nhận xóa tài khoản:");
+                
+                if (password === currentUser.password) {
+                    // Delete user data
+                    delete users[currentUser.id];
+                    localStorage.setItem('expenseManagerUsers', JSON.stringify(users));
+                    localStorage.removeItem('currentUser');
+                    
+                    currentUser = null;
+                    showAuthForm();
+                    showNotification('Tài khoản đã được xóa thành công!', 'success');
+                    return { success: true, message: 'Tài khoản đã được xóa!' };
+                } else {
+                    return { success: false, message: 'Mật khẩu không đúng!' };
+                }
+            }
+            return { success: false, message: 'Hủy xóa tài khoản!' };
         }
         
         function logout() {
@@ -1394,6 +1845,26 @@
             }
         }
         
+        function loadAccountManagementData() {
+            if (currentUser) {
+                // Load personal info
+                document.getElementById('accountName').value = currentUser.name;
+                document.getElementById('accountUsername').value = currentUser.username;
+                document.getElementById('accountEmail').value = currentUser.email;
+                
+                // Load avatar
+                updateAvatar(currentUser);
+                
+                // Clear password fields
+                document.getElementById('accountCurrentPassword').value = '';
+                document.getElementById('accountNewPassword').value = '';
+                document.getElementById('accountConfirmPassword').value = '';
+                
+                // Clear messages
+                clearAuthMessages();
+            }
+        }
+        
         function saveUserData() {
             if (currentUser) {
                 currentUser.monthlyLimit = monthlyLimit;
@@ -1403,6 +1874,52 @@
                 localStorage.setItem('expenseManagerUsers', JSON.stringify(users));
                 localStorage.setItem('currentUser', JSON.stringify(currentUser));
             }
+        }
+        
+        // ========== IMAGE PROCESSING ==========
+        function compressImage(file, maxWidth = 400, maxHeight = 400, quality = 0.8) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                
+                reader.onload = (event) => {
+                    const img = new Image();
+                    img.src = event.target.result;
+                    
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        let width = img.width;
+                        let height = img.height;
+                        
+                        // Calculate new dimensions
+                        if (width > height) {
+                            if (width > maxWidth) {
+                                height = Math.round((height * maxWidth) / width);
+                                width = maxWidth;
+                            }
+                        } else {
+                            if (height > maxHeight) {
+                                width = Math.round((width * maxHeight) / height);
+                                height = maxHeight;
+                            }
+                        }
+                        
+                        canvas.width = width;
+                        canvas.height = height;
+                        
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, width, height);
+                        
+                        // Convert to data URL with compression
+                        const dataUrl = canvas.toDataURL('image/jpeg', quality);
+                        resolve(dataUrl);
+                    };
+                    
+                    img.onerror = reject;
+                };
+                
+                reader.onerror = reject;
+            });
         }
         
         // ========== BIẾN TOÀN CỤC ==========
@@ -1434,10 +1951,10 @@
                     })
                     .catch(error => {
                         console.error('Service Worker đăng ký thất bại:', error);
-                        updatePWAStatus('');
+                        updatePWAStatus('❌ Service Worker thất bại');
                     });
             } else {
-                updatePWAStatus('❌ Trình duyệt không hỗ trợ Nokia :>');
+                updatePWAStatus('❌ Trình duyệt không hỗ trợ Service Worker');
             }
         }
         
@@ -1880,6 +2397,8 @@
                 document.getElementById('newCategory').value = '';
             });
             
+            // ========== AUTHENTICATION EVENT HANDLERS ==========
+            
             // Đăng nhập form
             document.getElementById('loginFormElement').addEventListener('submit', function(e) {
                 e.preventDefault();
@@ -1947,6 +2466,112 @@
                 }
             });
             
+            // ========== ACCOUNT MANAGEMENT EVENT HANDLERS ==========
+            
+            // Personal info form
+            document.getElementById('personalInfoForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const name = document.getElementById('accountName').value.trim();
+                const username = document.getElementById('accountUsername').value.trim();
+                const email = document.getElementById('accountEmail').value.trim();
+                
+                const result = updatePersonalInfo(name, username, email);
+                if (result.success) {
+                    showAuthMessage('personalInfoMessage', result.message, 'success');
+                    updateUserUI();
+                    setTimeout(() => {
+                        showMainApp();
+                    }, 1500);
+                } else {
+                    showAuthMessage('personalInfoMessage', result.message, 'error');
+                }
+            });
+            
+            // Cancel personal info changes
+            document.getElementById('cancelPersonalInfo').addEventListener('click', function() {
+                loadAccountManagementData();
+                showAuthMessage('personalInfoMessage', 'Đã hủy thay đổi!', 'info');
+            });
+            
+            // Password change form
+            document.getElementById('accountPasswordForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const currentPassword = document.getElementById('accountCurrentPassword').value;
+                const newPassword = document.getElementById('accountNewPassword').value;
+                const confirmPassword = document.getElementById('accountConfirmPassword').value;
+                
+                if (newPassword !== confirmPassword) {
+                    showAuthMessage('passwordChangeMessage', 'Mật khẩu xác nhận không khớp!', 'error');
+                    return;
+                }
+                
+                const result = changePassword(currentPassword, newPassword);
+                if (result.success) {
+                    showAuthMessage('passwordChangeMessage', result.message, 'success');
+                    setTimeout(() => {
+                        showMainApp();
+                    }, 1500);
+                } else {
+                    showAuthMessage('passwordChangeMessage', result.message, 'error');
+                }
+            });
+            
+            // Cancel password change
+            document.getElementById('cancelPasswordChange').addEventListener('click', function() {
+                loadAccountManagementData();
+                showAuthMessage('passwordChangeMessage', 'Đã hủy thay đổi!', 'info');
+            });
+            
+            // Change profile picture
+            document.getElementById('changePictureBtn').addEventListener('click', function() {
+                document.getElementById('pictureInput').click();
+            });
+            
+            document.getElementById('pictureInput').addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    if (!file.type.startsWith('image/')) {
+                        showNotification('Vui lòng chọn file hình ảnh!', 'error');
+                        return;
+                    }
+                    
+                    if (file.size > 5 * 1024 * 1024) {
+                        showNotification('Kích thước file quá lớn (tối đa 5MB)!', 'error');
+                        return;
+                    }
+                    
+                    // Compress and update avatar
+                    compressImage(file)
+                        .then(compressedImage => {
+                            const result = updateAvatarImage(compressedImage);
+                            showNotification(result.message, 'success');
+                        })
+                        .catch(error => {
+                            showNotification('Có lỗi xảy ra khi xử lý ảnh!', 'error');
+                            console.error('Image processing error:', error);
+                        });
+                    
+                    // Reset file input
+                    e.target.value = '';
+                }
+            });
+            
+            // Remove profile picture
+            document.getElementById('removePictureBtn').addEventListener('click', function() {
+                const result = removeAvatar();
+                showNotification(result.message, 'success');
+            });
+            
+            // Delete account
+            document.getElementById('deleteAccountBtn').addEventListener('click', function() {
+                const result = deleteAccount();
+                if (!result.success && result.message !== 'Hủy xóa tài khoản!') {
+                    showNotification(result.message, 'error');
+                }
+            });
+            
+            // ========== NAVIGATION EVENT HANDLERS ==========
+            
             // Toggle password visibility
             document.querySelectorAll('.toggle-password').forEach(button => {
                 button.addEventListener('click', function() {
@@ -1975,14 +2600,24 @@
                 showLoginForm();
             });
             
-            document.getElementById('backToApp').addEventListener('click', function(e) {
+            document.getElementById('backToAppFromChangePassword').addEventListener('click', function(e) {
                 e.preventDefault();
+                showMainApp();
+            });
+            
+            // Back to app button
+            document.getElementById('backToAppButton').addEventListener('click', function() {
                 showMainApp();
             });
             
             // User menu dropdown
             document.getElementById('userButton').addEventListener('click', function() {
                 document.getElementById('userDropdown').classList.toggle('show');
+            });
+            
+            document.getElementById('manageAccountBtn').addEventListener('click', function() {
+                document.getElementById('userDropdown').classList.remove('show');
+                showAccountManagement();
             });
             
             document.getElementById('changePasswordBtn').addEventListener('click', function() {
@@ -2001,7 +2636,8 @@
                 const userButton = document.getElementById('userButton');
                 const userDropdown = document.getElementById('userDropdown');
                 
-                if (!userMenu.contains(event.target) && userDropdown.classList.contains('show')) {
+                if (userMenu && userButton && userDropdown && 
+                    !userMenu.contains(event.target) && userDropdown.classList.contains('show')) {
                     userDropdown.classList.remove('show');
                 }
             });
