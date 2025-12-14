@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <!-- Meta tags cơ bản -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Chi Tiêu - Pro Vip </title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#2c3e50">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="QL Chi Tiêu">
+    <meta name="application-name" content="QL Chi Tiêu">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="msapplication-TileColor" content="#2c3e50">
+    <meta name="msapplication-tap-highlight" content="no">
+    
+    <!-- Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Icons -->
+    <link rel="icon" href="icon-192x192.png" type="image/png">
+    <link rel="apple-touch-icon" href="icon-192x192.png">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #16ec45 0%, #c3cfe2 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+            padding-top: env(safe-area-inset-top);
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* PWA Install Button */
+        .install-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 24px;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3);
+            cursor: pointer;
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .install-button.show {
+            display: flex;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        /* Offline Indicator */
+        .offline-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #e74c3c;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-weight: bold;
+            z-index: 1001;
+            display: none;
+        }
+        
+        .offline-indicator.show {
+            display: block;
+            animation: slideDown 0.3s;
+        }
+        
+        @keyframes slideDown {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #2c3e50;
+            color: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .app-description {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+        
+        .pwa-badge {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+        
+        /* SUMMARY SECTION */
+        .summary-section {
+            margin-bottom: 30px;
+        }
+        
+        .summary-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            flex: 1;
+            min-width: 250px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card.limit {
+            border-top: 5px solid #3498db;
+        }
+        
+        .card.spent {
+            border-top: 5px solid #e74c3c;
+        }
+        
+        .card.remaining {
+            border-top: 5px solid #2ecc71;
+        }
+        
+        .card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: #555;
+        }
+        
+        .card .amount {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        
+        .limit-amount {
+            color: #3498db;
+        }
+        
+        .spent-amount {
+            color: #e74c3c;
+        }
+        
+        .remaining-amount {
+            color: #2ecc71;
+        }
+        
+        /* FUNCTIONS SECTION */
+        .functions-section {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+        
+        .tab-header {
+            display: flex;
+            background-color: #f8f9fa;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        
+        .tab-button {
+            flex: 1;
+            padding: 18px 20px;
+            background: none;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #555;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .tab-button:hover {
+            background-color: #e9ecef;
+            color: #3498db;
+        }
+        
+        .tab-button.active {
+            color: #3498db;
+            border-bottom: 3px solid #3498db;
+            background-color: white;
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 30px;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .input-box {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 0;
+        }
+        
+        .input-box h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e0e0e0;
+            font-size: 1.4rem;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus, select:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+        
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 14px 25px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+        }
+        
+        .btn-add {
+            background-color: #2ecc71;
+        }
+        
+        .btn-add:hover {
+            background-color: #27ae60;
+        }
+        
+        /* EXPENSES SECTION */
+        .expenses-section {
+            background-color: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .section-header h2 {
+            color: #2c3e50;
+            font-size: 1.6rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .expenses-count {
+            background-color: #3498db;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .expenses-table-container {
+            overflow-x: auto;
+            border-radius: 10px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .expenses-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+        
+        .expenses-table thead {
+            background-color: #2c3e50;
+        }
+        
+        .expenses-table th {
+            padding: 16px 20px;
+            text-align: left;
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        
+        .expenses-table tbody tr {
+            border-bottom: 1px solid #f0f0f0;
+            transition: background-color 0.2s;
+        }
+        
+        .expenses-table tbody tr:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .expenses-table td {
+            padding: 16px 20px;
+            color: #555;
+        }
+        
+        .expenses-table .category-cell {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .category-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #ecf0f1;
+            color: #2c3e50;
+            font-size: 1rem;
+        }
+        
+        .amount-cell {
+            font-weight: 600;
+            color: #e74c3c;
+        }
+        
+        .date-cell {
+            color: #7f8c8d;
+        }
+        
+        .actions {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .btn-edit, .btn-delete {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            border-radius: 6px;
+        }
+        
+        .btn-edit {
+            background-color: #f39c12;
+        }
+        
+        .btn-edit:hover {
+            background-color: #d68910;
+        }
+        
+        .btn-delete {
+            background-color: #e74c3c;
+        }
+        
+        .btn-delete:hover {
+            background-color: #c0392b;
+        }
+        
+        .no-expenses {
+            text-align: center;
+            padding: 40px 20px;
+            color: #7f8c8d;
+        }
+        
+        .no-expenses i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: #bdc3c7;
+        }
+        
+        .no-expenses p {
+            font-size: 1.1rem;
+        }
+        
+        /* CATEGORIES SECTION */
+        .edit-categories {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+        }
+        
+        .categories-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 20px;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .category-tag {
+            background-color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border: 1px solid #e0e0e0;
+        }
+        
+        .category-tag i {
+            cursor: pointer;
+            color: #95a5a6;
+            transition: color 0.3s;
+        }
+        
+        .category-tag i:hover {
+            color: #e74c3c;
+        }
+        
+        .add-category {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .add-category input {
+            flex: 1;
+        }
+        
+        /* NOTIFICATION */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 0.3s, transform 0.3s;
+            max-width: 300px;
+        }
+        
+        .notification.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .notification.success {
+            background-color: #2ecc71;
+        }
+        
+        .notification.error {
+            background-color: #e74c3c;
+        }
+        
+        .notification.warning {
+            background-color: #f39c12;
+        }
+        
+        .notification.info {
+            background-color: #3498db;
+        }
+        
+        /* PWA STATUS */
+        .pwa-status {
+            text-align: center;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            border-left: 4px solid #3498db;
+        }
+        
+        /* FOOTER */
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .card {
+                min-width: 100%;
+                padding: 20px;
+            }
+            
+            .card .amount {
+                font-size: 1.8rem;
+            }
+            
+            .tab-header {
+                flex-wrap: wrap;
+            }
+            
+            .tab-button {
+                padding: 15px 10px;
+                font-size: 1rem;
+            }
+            
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .expenses-table th,
+            .expenses-table td {
+                padding: 12px 10px;
+                font-size: 0.9rem;
+            }
+            
+            .actions {
+                flex-direction: column;
+            }
+            
+            .btn-edit, .btn-delete {
+                width: 100%;
+            }
+            
+            .add-category {
+                flex-direction: column;
+            }
+            
+            .install-button {
+                bottom: 70px;
+                right: 10px;
+                font-size: 0.9rem;
+                padding: 10px 20px;
+            }
+        }
+        
+        @media (display-mode: standalone) {
+            body {
+                padding-top: calc(20px + env(safe-area-inset-top));
+            }
+            
+            header {
+                padding-top: calc(20px + env(safe-area-inset-top));
+            }
+            
+            .install-button {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Offline Indicator -->
+    <div class="offline-indicator" id="offlineIndicator">
+        <i class="fas fa-wifi-slash"></i> Đang offline - Dữ liệu sẽ được lưu tạm
+    </div>
+    
+    <!-- PWA Install Button -->
+    <button class="install-button" id="installButton">
+        <i class="fas fa-download"></i> Cài App
+    </button>
+    
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-wallet"></i> QUẢN LÝ CHI TIÊU  <span class="pwa-badge">EAP</span></h1>
+            <p class="app-description">Ứng dụng quản lý tài chính có thể cài đặt như app</p>
+        </header>
+        
+        <!-- PWA Status -->
+        <div class="pwa-status" id="pwaStatus">
+            <i class="fas fa-sync-alt"></i> Kiểm tra ...
+        </div>
+        
+        <!-- PHẦN 1: TỔNG QUAN -->
+        <section class="summary-section">
+            <div class="summary-cards">
+                <div class="card limit">
+                    <h3>Giới hạn chi tiêu</h3>
+                    <div class="amount limit-amount" id="limitAmount">0 đ</div>
+                </div>
+                
+                <div class="card spent">
+                    <h3>Đã chi tiêu</h3>
+                    <div class="amount spent-amount" id="spentAmount">0 đ</div>
+                </div>
+                
+                <div class="card remaining">
+                    <h3>Số tiền còn lại</h3>
+                    <div class="amount remaining-amount" id="remainingAmount">0 đ</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- PHẦN 2: CHỨC NĂNG (TABS) -->
+        <section class="functions-section">
+            <div class="tab-header">
+                <button class="tab-button active" data-tab="set-limit">
+                    <i class="fas fa-cogs"></i> Thiết lập giới hạn
+                </button>
+                <button class="tab-button" data-tab="add-expense">
+                    <i class="fas fa-plus-circle"></i> Thêm chi tiêu
+                </button>
+                <button class="tab-button" data-tab="manage-categories">
+                    <i class="fas fa-edit"></i> Quản lý danh mục
+                </button>
+            </div>
+            
+            <div class="tab-content active" id="set-limit">
+                <div class="input-box">
+                    <h2><i class="fas fa-cogs"></i> Thiết lập giới hạn chi tiêu</h2>
+                    <div class="form-group">
+                        <label for="newLimit">Giới hạn chi tiêu tháng</label>
+                        <input type="text" id="newLimit" placeholder="Ví dụ: 5m, 500k, 1000000" value="">
+                    </div>
+                    <button id="updateLimitBtn">
+                        <i class="fas fa-save"></i> Cập nhật giới hạn
+                    </button>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="add-expense">
+                <div class="input-box">
+                    <h2><i class="fas fa-plus-circle"></i> Thêm khoản chi tiêu</h2>
+                    <div class="form-group">
+                        <label for="expenseCategory">Danh mục chi tiêu</label>
+                        <select id="expenseCategory">
+                            <!-- Categories will be loaded here -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="expenseAmount">Số tiền</label>
+                        <input type="text" id="expenseAmount" placeholder="Ví dụ: 100k, 1.5m, 50000">
+                    </div>
+                    <div class="form-group">
+                        <label for="expenseDate">Ngày chi tiêu</label>
+                        <input type="date" id="expenseDate">
+                    </div>
+                    <button id="addExpenseBtn" class="btn-add">
+                        <i class="fas fa-plus"></i> Thêm chi tiêu
+                    </button>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="manage-categories">
+                <div class="edit-categories">
+                    <h2><i class="fas fa-edit"></i> Quản lý danh mục chi tiêu</h2>
+                    <p>Thêm, chỉnh sửa hoặc xóa các danh mục chi tiêu</p>
+                    
+                    <div class="categories-list" id="categoriesList">
+                        <!-- Categories will be loaded here -->
+                    </div>
+                    
+                    <div class="add-category">
+                        <input type="text" id="newCategory" placeholder="Nhập tên danh mục mới">
+                        <button id="addCategoryBtn" class="btn-add">
+                            <i class="fas fa-plus"></i> Thêm danh mục
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- PHẦN 3: DANH SÁCH CHI TIÊU -->
+        <section class="expenses-section">
+            <div class="section-header">
+                <h2><i class="fas fa-list"></i> Danh sách chi tiêu trong tháng</h2>
+                <div class="expenses-count" id="expensesCount">0 khoản chi</div>
+            </div>
+            
+            <div class="expenses-table-container">
+                <table class="expenses-table" id="expensesTable">
+                    <thead>
+                        <tr>
+                            <th width="60">STT</th>
+                            <th>Danh mục</th>
+                            <th width="180">Số tiền</th>
+                            <th width="150">Ngày</th>
+                            <th width="180">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody id="expensesTableBody">
+                        <!-- Expenses will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        <footer>
+            <p>Ứng dụng Quản Lý Chi Tiêu PWA &copy; daominhduc08tb@gmail.com</p>
+            <p><small><i class="fas fa-mobile-alt"></i> Có thể cài đặt như ứng dụng di động</small></p>
+        </footer>
+    </div>
+    
+    <!-- Notification -->
+    <div class="notification" id="notification"></div>
+    
+    <!-- JavaScript -->
+    <script>
+        // ========== BIẾN TOÀN CỤC ==========
+        let monthlyLimit = 0;
+        let expenses = [];
+        let categories = [];
+        let isOnline = navigator.onLine;
+        let deferredPrompt = null;
+        let pendingExpenses = JSON.parse(localStorage.getItem('pendingExpenses') || '[]');
+        
+        // ========== PWA FUNCTIONS ==========
+        // Đăng ký Service Worker
+        function registerServiceWorker() {
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('service-worker.js')
+                    .then(registration => {
+                        console.log('Service Worker đăng ký thành công:', registration);
+                        updatePWAStatus('✅ Service Worker đã sẵn sàng');
+                        
+                        // Kiểm tra update
+                        registration.addEventListener('updatefound', () => {
+                            const newWorker = registration.installing;
+                            newWorker.addEventListener('statechange', () => {
+                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                    showNotification('Đã có bản cập nhật mới!', 'info');
+                                }
+                            });
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Service Worker đăng ký thất bại:', error);
+                        updatePWAStatus('❌ Service Worker thất bại');
+                    });
+            } else {
+                updatePWAStatus('❌ Trình duyệt không hỗ trợ Service Worker');
+            }
+        }
+        
+        // Xử lý cài đặt PWA
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            
+            // Hiển thị nút cài đặt
+            const installButton = document.getElementById('installButton');
+            installButton.classList.add('show');
+            
+            installButton.addEventListener('click', async () => {
+                if (deferredPrompt) {
+                    deferredPrompt.prompt();
+                    const { outcome } = await deferredPrompt.userChoice;
+                    
+                    if (outcome === 'accepted') {
+                        showNotification('Ứng dụng đang được cài đặt...', 'success');
+                        installButton.classList.remove('show');
+                    }
+                    deferredPrompt = null;
+                }
+            });
+        });
+        
+        // Khi app đã được cài đặt
+        window.addEventListener('appinstalled', () => {
+            console.log('PWA đã được cài đặt');
+            updatePWAStatus('✅ Ứng dụng đã được cài đặt');
+            document.getElementById('installButton').classList.remove('show');
+            showNotification('Cài đặt thành công! Bạn có thể mở app từ màn hình chính.', 'success');
+        });
+        
+        // Kiểm tra trạng thái PWA
+        function checkPWAStatus() {
+            const status = [];
+            
+            // Kiểm tra display mode
+            if (window.matchMedia('(display-mode: standalone)').matches) {
+                status.push('✅ Đang chạy như ứng dụng');
+            } else if (window.navigator.standalone) {
+                status.push('✅ Đang chạy trên iOS');
+            } else {
+                status.push('ℹ️ Mở trên trình duyệt');
+            }
+            
+            // Kiểm tra online/offline
+            status.push(isOnline ? '✅ Đang online' : '⚠️ Đang offline');
+            
+            // Kiểm tra localStorage
+            status.push('localStorage' in window ? '✅ Lưu trữ cục bộ' : '❌ Không hỗ trợ lưu trữ');
+            
+            updatePWAStatus(status.join(' • '));
+        }
+        
+        function updatePWAStatus(message) {
+            const statusElement = document.getElementById('pwaStatus');
+            if (statusElement) {
+                statusElement.innerHTML = `<i class="fas fa-info-circle"></i> ${message}`;
+            }
+        }
+        
+        // ========== OFFLINE SUPPORT ==========
+        function updateOnlineStatus() {
+            isOnline = navigator.onLine;
+            const offlineIndicator = document.getElementById('offlineIndicator');
+            
+            if (!isOnline) {
+                offlineIndicator.classList.add('show');
+                showNotification('Đang offline. Dữ liệu sẽ được lưu tạm.', 'warning');
+            } else {
+                offlineIndicator.classList.remove('show');
+                // Đồng bộ dữ liệu chờ khi online lại
+                syncPendingExpenses();
+            }
+            checkPWAStatus();
+        }
+        
+        function syncPendingExpenses() {
+            if (pendingExpenses.length > 0 && isOnline) {
+                pendingExpenses.forEach(expense => {
+                    expenses.push(expense);
+                });
+                
+                const count = pendingExpenses.length;
+                pendingExpenses = [];
+                localStorage.removeItem('pendingExpenses');
+                
+                renderExpensesTable();
+                updateSummary();
+                showNotification(`Đã đồng bộ ${count} khoản chi tiêu chờ, 'success'`);
+            }
+        }
+        
+        // ========== UTILITY FUNCTIONS ==========
+        function parseMoneyFormat(input) {
+            if (!input || input.trim() === '') return 0;
+            
+            let str = input.trim().toLowerCase().replace(/\s+/g, '');
+            let multiplier = 1;
+            
+            if (str.includes('m')) {
+                multiplier = 1000000;
+                str = str.replace('m', '');
+            } else if (str.includes('k')) {
+                multiplier = 1000;
+                str = str.replace('k', '');
+            } else if (str.includes('tr')) {
+                multiplier = 1000000;
+                str = str.replace('tr', '');
+            }
+            
+            str = str.replace(/\./g, '').replace(/,/g, '');
+            const number = parseFloat(str);
+            
+            return isNaN(number) ? 0 : Math.round(number * multiplier);
+        }
+        
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('vi-VN', { 
+                style: 'currency', 
+                currency: 'VND',
+                minimumFractionDigits: 0
+            }).format(amount);
+        }
+        
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('vi-VN');
+        }
+        
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = `notification ${type}`;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+        
+        // ========== CORE APP FUNCTIONS ==========
+        function updateSummary() {
+            const totalSpent = expenses.reduce((total, expense) => total + expense.amount, 0);
+            const remaining = monthlyLimit - totalSpent;
+            
+            document.getElementById('limitAmount').textContent = formatCurrency(monthlyLimit);
+            document.getElementById('spentAmount').textContent = formatCurrency(totalSpent);
+            document.getElementById('remainingAmount').textContent = formatCurrency(remaining);
+            document.getElementById('expensesCount').textContent = `${expenses.length} khoản chi`;
+            
+            const remainingElement = document.getElementById('remainingAmount');
+            remainingElement.style.color = remaining < 0 ? '#e74c3c' : '#2ecc71';
+            
+            saveData();
+        }
+        
+        function renderExpensesTable() {
+            const tbody = document.getElementById('expensesTableBody');
+            
+            if (expenses.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="5" class="no-expenses">
+                            <i class="fas fa-clipboard-list"></i>
+                            <p>Chưa có khoản chi tiêu nào. Hãy thêm chi tiêu đầu tiên của bạn!</p>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            let html = '';
+            expenses.forEach((expense, index) => {
+                const categoryIcon = getCategoryIcon(expense.category);
+                
+                html += `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>
+                            <div class="category-cell">
+                                <div class="category-icon">
+                                    <i class="${categoryIcon}"></i>
+                                </div>
+                                <span>${expense.categoryName}</span>
+                            </div>
+                        </td>
+                        <td class="amount-cell">${formatCurrency(expense.amount)}</td>
+                        <td class="date-cell">${formatDate(expense.date)}</td>
+                        <td>
+                            <div class="actions">
+                                <button class="btn-edit" onclick="editExpense(${expense.id})">
+                                    <i class="fas fa-edit"></i> Sửa
+                                </button>
+                                <button class="btn-delete" onclick="deleteExpense(${expense.id})">
+                                    <i class="fas fa-trash"></i> Xóa
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
+            
+            tbody.innerHTML = html;
+        }
+        
+        function getCategoryIcon(categoryId) {
+            const iconMap = {
+                'gym': 'fas fa-dumbbell',
+                'gas': 'fas fa-gas-pump',
+                'internet': 'fas fa-wifi',
+                'saving': 'fas fa-piggy-bank',
+                'haircut': 'fas fa-cut',
+                'food': 'fas fa-utensils',
+                'shopping': 'fas fa-shopping-bag',
+                'transport': 'fas fa-bus',
+                'entertainment': 'fas fa-film',
+                'health': 'fas fa-heartbeat',
+                'education': 'fas fa-graduation-cap',
+                'other': 'fas fa-ellipsis-h'
+            };
+            
+            return iconMap[categoryId] || 'fas fa-tag';
+        }
+        
+        function renderCategories() {
+            const categoriesList = document.getElementById('categoriesList');
+            
+            if (categories.length === 0) {
+                categories = [
+                    { id: "gym", name: "Tiền tập gym" },
+                    { id: "gas", name: "Tiền đổ xăng" },
+                    { id: "internet", name: "Tiền mạng 4G" },
+                    { id: "saving", name: "Tiền tích kiệm" },
+                    { id: "haircut", name: "Tiền cắt tóc" },
+                    { id: "food", name: "Ăn uống" },
+                    { id: "shopping", name: "Mua sắm" }
+                ];
+            }
+            
+            let html = '';
+            categories.forEach(category => {
+                html += `
+                    <div class="category-tag">
+                        <span>${category.name}</span>
+                        <i class="fas fa-times" onclick="deleteCategory('${category.id}')"></i>
+                    </div>
+                `;
+            });
+            
+            categoriesList.innerHTML = html;
+            updateCategoryDropdown();
+        }
+        
+        function updateCategoryDropdown() {
+            const dropdown = document.getElementById('expenseCategory');
+            dropdown.innerHTML = '';
+            
+            categories.forEach(category => {
+                const option = document.createElement('option');
+                option.value = category.id;
+                option.textContent = category.name;
+                dropdown.appendChild(option);
+            });
+        }
+        
+        function saveData() {
+            const data = {
+                monthlyLimit: monthlyLimit,
+                expenses: expenses,
+                categories: categories,
+                lastUpdated: new Date().toISOString()
+            };
+            localStorage.setItem('expenseManagerData', JSON.stringify(data));
+        }
+        
+        function loadData() {
+            try {
+                const savedData = localStorage.getItem('expenseManagerData');
+                if (savedData) {
+                    const data = JSON.parse(savedData);
+                    monthlyLimit = data.monthlyLimit || 0;
+                    expenses = data.expenses || [];
+                    categories = data.categories || [];
+                }
+            } catch (error) {
+                console.error("Lỗi load dữ liệu:", error);
+            }
+        }
+        
+        // ========== EVENT HANDLERS ==========
+        function deleteExpense(id) {
+            if (confirm("Bạn có chắc chắn muốn xóa khoản chi tiêu này?")) {
+                expenses = expenses.filter(expense => expense.id !== id);
+                renderExpensesTable();
+                updateSummary();
+                showNotification("Đã xóa khoản chi tiêu!", "success");
+            }
+        }
+        
+        function editExpense(id) {
+            const expense = expenses.find(e => e.id === id);
+            if (!expense) return;
+            
+            const newAmount = prompt(`Sửa số tiền cho "${expense.categoryName}":, expense.amount`);
+            if (newAmount) {
+                const parsedAmount = parseMoneyFormat(newAmount);
+                if (parsedAmount > 0) {
+                    expense.amount = parsedAmount;
+                    renderExpensesTable();
+                    updateSummary();
+                    showNotification("Đã cập nhật khoản chi tiêu!", "success");
+                } else {
+                    showNotification("Số tiền không hợp lệ!", "error");
+                }
+            }
+        }
+        
+        function deleteCategory(id) {
+            const isUsed = expenses.some(expense => expense.category === id);
+            
+            if (isUsed) {
+                showNotification("Không thể xóa vì có chi tiêu thuộc danh mục này!", "error");
+                return;
+            }
+            
+            if (confirm("Bạn có chắc muốn xóa danh mục này?")) {
+                categories = categories.filter(cat => cat.id !== id);
+                renderCategories();
+                showNotification("Đã xóa danh mục!", "success");
+            }
+        }
+        
+        // ========== INITIALIZATION ==========
+        document.addEventListener('DOMContentLoaded', function() {
+            // Thiết lập ngày mặc định
+            const today = new Date();
+            document.getElementById('expenseDate').value = today.toISOString().split('T')[0];
+            
+            // Khởi tạo PWA
+            registerServiceWorker();
+            checkPWAStatus();
+            updateOnlineStatus();
+            
+            // Load dữ liệu
+            loadData();
+            updateSummary();
+            renderExpensesTable();
+            renderCategories();
+            
+            // Xử lý chuyển tab
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                    
+                    this.classList.add('active');
+                    const tabId = this.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+            
+            // Cập nhật giới hạn
+            document.getElementById('updateLimitBtn').addEventListener('click', function() {
+                const limitInput = document.getElementById('newLimit').value.trim();
+                
+                if (limitInput === '') {
+                    monthlyLimit = 0;
+                    updateSummary();
+                    showNotification("Đã đặt giới hạn về 0!", "success");
+                    return;
+                }
+                
+                const newLimit = parseMoneyFormat(limitInput);
+                
+                if (newLimit >= 0) {
+                    monthlyLimit = newLimit;
+                    updateSummary();
+                    document.getElementById('newLimit').value = '';
+                    showNotification("Cập nhật giới hạn thành công!", "success");
+                } else {
+                    showNotification("Vui lòng nhập số tiền hợp lệ!", "error");
+                }
+            });
+            
+            // Thêm chi tiêu
+            document.getElementById('addExpenseBtn').addEventListener('click', function() {
+                const category = document.getElementById('expenseCategory').value;
+                const amountInput = document.getElementById('expenseAmount').value.trim();
+                const date = document.getElementById('expenseDate').value;
+                
+                if (!category || !amountInput || !date) {
+                    showNotification("Vui lòng điền đầy đủ thông tin!", "error");
+                    return;
+                }
+                
+                const amount = parseMoneyFormat(amountInput);
+                
+                if (amount <= 0) {
+                    showNotification("Số tiền phải lớn hơn 0!", "error");
+                    return;
+                }
+                
+                const categoryObj = categories.find(cat => cat.id === category);
+                const categoryName = categoryObj ? categoryObj.name : category;
+                const newId = expenses.length > 0 ? Math.max(...expenses.map(e => e.id)) + 1 : 1;
+                
+                const newExpense = {
+                    id: newId,
+                    category: category,
+                    categoryName: categoryName,
+                    amount: amount,
+                    date: date
+                };
+                
+                // Xử lý offline
+                if (!isOnline) {
+                    pendingExpenses.push({
+                        ...newExpense,
+                        pending: true,
+                        timestamp: new Date().toISOString()
+                    });
+                    localStorage.setItem('pendingExpenses', JSON.stringify(pendingExpenses));
+                    showNotification('Đã lưu tạm. Sẽ đồng bộ khi có mạng.', 'warning');
+                    document.getElementById('expenseAmount').value = '';
+                    return;
+                }
+                
+                expenses.push(newExpense);
+                renderExpensesTable();
+                updateSummary();
+                showNotification("Đã thêm chi tiêu mới!", "success");
+                document.getElementById('expenseAmount').value = '';
+            });
+            
+            // Thêm danh mục
+            document.getElementById('addCategoryBtn').addEventListener('click', function() {
+                const newCategoryName = document.getElementById('newCategory').value.trim();
+                
+                if (!newCategoryName) {
+                    showNotification("Vui lòng nhập tên danh mục!", "error");
+                    return;
+                }
+                
+                const newCategoryId = newCategoryName.toLowerCase()
+                    .replace(/\s+/g, '_')
+                    .replace(/[^a-z0-9_]/g, '');
+                
+                if (categories.find(cat => cat.id === newCategoryId || cat.name === newCategoryName)) {
+                    showNotification("Danh mục đã tồn tại!", "error");
+                    return;
+                }
+                
+                categories.push({
+                    id: newCategoryId,
+                    name: newCategoryName
+                });
+                
+                renderCategories();
+                showNotification("Đã thêm danh mục mới!", "success");
+                document.getElementById('newCategory').value = '';
+            });
+            
+            showNotification("Ứng dụng đã sẵn sàng!", "success");
+        });
+        
+        // ========== EVENT LISTENERS ==========
+        window.addEventListener('online', updateOnlineStatus);
+        window.addEventListener('offline', updateOnlineStatus);
+        window.addEventListener('beforeunload', saveData);
+        
+        // Kiểm tra PWA định kỳ
+        setInterval(checkPWAStatus, 60000);
+    </script>
+</body>
+</html>
