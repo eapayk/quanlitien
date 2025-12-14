@@ -48,6 +48,279 @@
             margin: 0 auto;
         }
         
+        /* Authentication Container */
+        .auth-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+        }
+        
+        .auth-box {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            padding: 40px;
+            width: 100%;
+            max-width: 450px;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .auth-box h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .auth-box h2 i {
+            color: #3498db;
+        }
+        
+        .auth-form .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .auth-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+            font-size: 0.95rem;
+        }
+        
+        .auth-form input {
+            width: 100%;
+            padding: 14px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .auth-form input:focus {
+            border-color: #3498db;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+        
+        .auth-form .password-input {
+            position: relative;
+        }
+        
+        .auth-form .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #7f8c8d;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .auth-button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .auth-button:hover {
+            background: linear-gradient(135deg, #2980b9, #1c6ea4);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+        
+        .auth-button.register {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+        }
+        
+        .auth-button.register:hover {
+            background: linear-gradient(135deg, #27ae60, #219653);
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
+        }
+        
+        .auth-links {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .auth-links a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        
+        .auth-links a:hover {
+            color: #2980b9;
+            text-decoration: underline;
+        }
+        
+        .auth-message {
+            text-align: center;
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            display: none;
+        }
+        
+        .auth-message.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+        
+        .auth-message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+        
+        /* User Menu */
+        .user-menu {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        
+        .user-button {
+            background: white;
+            border: none;
+            border-radius: 50px;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .user-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+        
+        .user-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3498db, #2ecc71);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .user-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            min-width: 200px;
+            margin-top: 10px;
+            display: none;
+            animation: fadeIn 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .user-dropdown.show {
+            display: block;
+        }
+        
+        .user-info {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            text-align: center;
+        }
+        
+        .user-info .user-avatar {
+            margin: 0 auto 10px;
+            width: 50px;
+            height: 50px;
+            font-size: 1.3rem;
+        }
+        
+        .user-info h4 {
+            margin-bottom: 5px;
+            color: #2c3e50;
+        }
+        
+        .user-info p {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 20px;
+            color: #555;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            cursor: pointer;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            font-size: 1rem;
+        }
+        
+        .dropdown-item:hover {
+            background-color: #f8f9fa;
+            color: #3498db;
+        }
+        
+        .dropdown-item.logout {
+            color: #e74c3c;
+            border-top: 1px solid #eee;
+        }
+        
+        .dropdown-item.logout:hover {
+            background-color: #ffeaea;
+        }
+        
+        /* Hide main app when not logged in */
+        .main-app {
+            display: none;
+        }
+        
         /* PWA Install Button */
         .install-button {
             position: fixed;
@@ -585,6 +858,24 @@
                 font-size: 1.8rem;
             }
             
+            .auth-box {
+                padding: 30px 20px;
+                margin: 0 10px;
+            }
+            
+            .user-menu {
+                position: relative;
+                top: 0;
+                right: 0;
+                margin-bottom: 20px;
+                display: flex;
+                justify-content: flex-end;
+            }
+            
+            .user-button span {
+                display: none;
+            }
+            
             .tab-header {
                 flex-wrap: wrap;
             }
@@ -652,10 +943,152 @@
         <i class="fas fa-download"></i> Cài App
     </button>
     
-    <div class="container">
+    <!-- User Menu -->
+    <div class="user-menu" id="userMenu" style="display: none;">
+        <button class="user-button" id="userButton">
+            <div class="user-avatar" id="userAvatar">U</div>
+            <span id="userName">Tài khoản</span>
+            <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="user-dropdown" id="userDropdown">
+            <div class="user-info">
+                <div class="user-avatar" id="dropdownAvatar">U</div>
+                <h4 id="dropdownName">Tài khoản</h4>
+                <p id="dropdownEmail">user@example.com</p>
+            </div>
+            <button class="dropdown-item" id="changePasswordBtn">
+                <i class="fas fa-key"></i> Đổi mật khẩu
+            </button>
+            <button class="dropdown-item logout" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i> Đăng xuất
+            </button>
+        </div>
+    </div>
+    
+    <!-- Authentication Container -->
+    <div class="container" id="authContainer">
+        <div class="auth-container">
+            <div class="auth-box" id="authBox">
+                <!-- Login Form -->
+                <div id="loginForm">
+                    <h2><i class="fas fa-sign-in-alt"></i> Đăng nhập</h2>
+                    <form class="auth-form" id="loginFormElement">
+                        <div class="form-group">
+                            <label for="loginEmail">Email hoặc tên đăng nhập</label>
+                            <input type="text" id="loginEmail" placeholder="Nhập email hoặc tên đăng nhập" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword">Mật khẩu</label>
+                            <div class="password-input">
+                                <input type="password" id="loginPassword" placeholder="Nhập mật khẩu" required>
+                                <button type="button" class="toggle-password" data-target="loginPassword">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="auth-message" id="loginMessage"></div>
+                        <button type="submit" class="auth-button">
+                            <i class="fas fa-sign-in-alt"></i> Đăng nhập
+                        </button>
+                    </form>
+                    <div class="auth-links">
+                        Chưa có tài khoản? <a href="#" id="showRegister">Đăng ký ngay</a>
+                    </div>
+                </div>
+                
+                <!-- Register Form -->
+                <div id="registerForm" style="display: none;">
+                    <h2><i class="fas fa-user-plus"></i> Đăng ký tài khoản</h2>
+                    <form class="auth-form" id="registerFormElement">
+                        <div class="form-group">
+                            <label for="registerName">Họ và tên</label>
+                            <input type="text" id="registerName" placeholder="Nhập họ và tên" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="registerEmail">Email</label>
+                            <input type="email" id="registerEmail" placeholder="Nhập email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="registerUsername">Tên đăng nhập</label>
+                            <input type="text" id="registerUsername" placeholder="Nhập tên đăng nhập" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="registerPassword">Mật khẩu</label>
+                            <div class="password-input">
+                                <input type="password" id="registerPassword" placeholder="Nhập mật khẩu (ít nhất 6 ký tự)" required minlength="6">
+                                <button type="button" class="toggle-password" data-target="registerPassword">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword">Xác nhận mật khẩu</label>
+                            <div class="password-input">
+                                <input type="password" id="confirmPassword" placeholder="Nhập lại mật khẩu" required minlength="6">
+                                <button type="button" class="toggle-password" data-target="confirmPassword">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="auth-message" id="registerMessage"></div>
+                        <button type="submit" class="auth-button register">
+                            <i class="fas fa-user-plus"></i> Đăng ký
+                        </button>
+                    </form>
+                    <div class="auth-links">
+                        Đã có tài khoản? <a href="#" id="showLogin">Đăng nhập</a>
+                    </div>
+                </div>
+                
+                <!-- Change Password Form -->
+                <div id="changePasswordForm" style="display: none;">
+                    <h2><i class="fas fa-key"></i> Đổi mật khẩu</h2>
+                    <form class="auth-form" id="changePasswordFormElement">
+                        <div class="form-group">
+                            <label for="currentPassword">Mật khẩu hiện tại</label>
+                            <div class="password-input">
+                                <input type="password" id="currentPassword" placeholder="Nhập mật khẩu hiện tại" required>
+                                <button type="button" class="toggle-password" data-target="currentPassword">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="newPassword">Mật khẩu mới</label>
+                            <div class="password-input">
+                                <input type="password" id="newPassword" placeholder="Nhập mật khẩu mới (ít nhất 6 ký tự)" required minlength="6">
+                                <button type="button" class="toggle-password" data-target="newPassword">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmNewPassword">Xác nhận mật khẩu mới</label>
+                            <div class="password-input">
+                                <input type="password" id="confirmNewPassword" placeholder="Nhập lại mật khẩu mới" required minlength="6">
+                                <button type="button" class="toggle-password" data-target="confirmNewPassword">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="auth-message" id="changePasswordMessage"></div>
+                        <button type="submit" class="auth-button">
+                            <i class="fas fa-save"></i> Cập nhật mật khẩu
+                        </button>
+                    </form>
+                    <div class="auth-links">
+                        <a href="#" id="backToApp">Quay lại ứng dụng</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main App Container -->
+    <div class="container main-app" id="mainApp">
         <header>
-            <h1><i class="fas fa-wallet"></i> QUẢN LÝ CHI TIÊU  <span class="pwa-badge">EAP</span></h1>
-            <p class="app-description">Ứng dụng quản lý tài chính có thể cài đặt như app</p>
+            <h1><i class="fas fa-wallet"></i> QUẢN LÝ CHI TIÊU <span class="pwa-badge">EAP</span></h1>
+            <p class="app-description">Xin chào, <span id="welcomeName">Người dùng</span>!</p>
         </header>
         
         <!-- PWA Status -->
@@ -788,6 +1221,190 @@
     
     <!-- JavaScript -->
     <script>
+        // ========== AUTHENTICATION SYSTEM ==========
+        let currentUser = null;
+        let users = JSON.parse(localStorage.getItem('expenseManagerUsers') || '{}');
+        
+        // ========== USER MANAGEMENT FUNCTIONS ==========
+        function showAuthForm() {
+            document.getElementById('authContainer').style.display = 'block';
+            document.getElementById('mainApp').style.display = 'none';
+            document.getElementById('userMenu').style.display = 'none';
+            showLoginForm();
+        }
+        
+        function showMainApp() {
+            document.getElementById('authContainer').style.display = 'none';
+            document.getElementById('mainApp').style.display = 'block';
+            document.getElementById('userMenu').style.display = 'flex';
+            updateUserUI();
+            loadUserData();
+        }
+        
+        function showLoginForm() {
+            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('registerForm').style.display = 'none';
+            document.getElementById('changePasswordForm').style.display = 'none';
+            clearAuthMessages();
+        }
+        
+        function showRegisterForm() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('registerForm').style.display = 'block';
+            document.getElementById('changePasswordForm').style.display = 'none';
+            clearAuthMessages();
+        }
+        
+        function showChangePasswordForm() {
+            document.getElementById('authContainer').style.display = 'block';
+            document.getElementById('mainApp').style.display = 'none';
+            document.getElementById('userMenu').style.display = 'none';
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('registerForm').style.display = 'none';
+            document.getElementById('changePasswordForm').style.display = 'block';
+            clearAuthMessages();
+        }
+        
+        function clearAuthMessages() {
+            document.getElementById('loginMessage').className = 'auth-message';
+            document.getElementById('registerMessage').className = 'auth-message';
+            document.getElementById('changePasswordMessage').className = 'auth-message';
+        }
+        
+        function showAuthMessage(elementId, message, type) {
+            const element = document.getElementById(elementId);
+            element.textContent = message;
+            element.className = `auth-message ${type}`;
+        }
+        
+        function updateUserUI() {
+            if (currentUser) {
+                document.getElementById('userName').textContent = currentUser.name;
+                document.getElementById('welcomeName').textContent = currentUser.name;
+                document.getElementById('dropdownName').textContent = currentUser.name;
+                document.getElementById('dropdownEmail').textContent = currentUser.email;
+                
+                // Set avatar initials
+                const initials = currentUser.name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
+                document.getElementById('userAvatar').textContent = initials;
+                document.getElementById('dropdownAvatar').textContent = initials;
+            }
+        }
+        
+        function login(emailOrUsername, password) {
+            // Find user by email or username
+            let user = null;
+            for (const userId in users) {
+                const u = users[userId];
+                if ((u.email === emailOrUsername || u.username === emailOrUsername) && u.password === password) {
+                    user = u;
+                    break;
+                }
+            }
+            
+            if (user) {
+                currentUser = user;
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                showMainApp();
+                showNotification(`Chào mừng ${user.name} trở lại!`, 'success');
+                return true;
+            }
+            
+            return false;
+        }
+        
+        function register(name, email, username, password) {
+            // Check if user already exists
+            for (const userId in users) {
+                const user = users[userId];
+                if (user.email === email) {
+                    return { success: false, message: 'Email đã được sử dụng!' };
+                }
+                if (user.username === username) {
+                    return { success: false, message: 'Tên đăng nhập đã được sử dụng!' };
+                }
+            }
+            
+            // Create new user
+            const userId = Date.now().toString();
+            const newUser = {
+                id: userId,
+                name: name,
+                email: email,
+                username: username,
+                password: password,
+                createdAt: new Date().toISOString(),
+                monthlyLimit: 0,
+                expenses: [],
+                categories: [
+                    { id: "gym", name: "Tiền tập gym" },
+                    { id: "gas", name: "Tiền đổ xăng" },
+                    { id: "internet", name: "Tiền mạng 4G" },
+                    { id: "saving", name: "Tiền tích kiệm" },
+                    { id: "haircut", name: "Tiền cắt tóc" },
+                    { id: "food", name: "Ăn uống" },
+                    { id: "shopping", name: "Mua sắm" }
+                ]
+            };
+            
+            users[userId] = newUser;
+            localStorage.setItem('expenseManagerUsers', JSON.stringify(users));
+            
+            currentUser = newUser;
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            
+            return { success: true, message: 'Đăng ký thành công!' };
+        }
+        
+        function changePassword(currentPassword, newPassword) {
+            if (currentUser.password !== currentPassword) {
+                return { success: false, message: 'Mật khẩu hiện tại không đúng!' };
+            }
+            
+            if (newPassword.length < 6) {
+                return { success: false, message: 'Mật khẩu mới phải có ít nhất 6 ký tự!' };
+            }
+            
+            currentUser.password = newPassword;
+            users[currentUser.id] = currentUser;
+            localStorage.setItem('expenseManagerUsers', JSON.stringify(users));
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            
+            return { success: true, message: 'Đổi mật khẩu thành công!' };
+        }
+        
+        function logout() {
+            currentUser = null;
+            localStorage.removeItem('currentUser');
+            monthlyLimit = 0;
+            expenses = [];
+            categories = [];
+            showAuthForm();
+            showNotification('Đã đăng xuất thành công!', 'success');
+        }
+        
+        function loadUserData() {
+            if (currentUser) {
+                monthlyLimit = currentUser.monthlyLimit || 0;
+                expenses = currentUser.expenses || [];
+                categories = currentUser.categories || [];
+                updateSummary();
+                renderExpensesTable();
+                renderCategories();
+            }
+        }
+        
+        function saveUserData() {
+            if (currentUser) {
+                currentUser.monthlyLimit = monthlyLimit;
+                currentUser.expenses = expenses;
+                currentUser.categories = categories;
+                users[currentUser.id] = currentUser;
+                localStorage.setItem('expenseManagerUsers', JSON.stringify(users));
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            }
+        }
+        
         // ========== BIẾN TOÀN CỤC ==========
         let monthlyLimit = 0;
         let expenses = [];
@@ -817,10 +1434,10 @@
                     })
                     .catch(error => {
                         console.error('Service Worker đăng ký thất bại:', error);
-                        updatePWAStatus('❌ Service Worker thất bại');
+                        updatePWAStatus('');
                     });
             } else {
-                updatePWAStatus('❌ Trình duyệt không hỗ trợ Service Worker');
+                updatePWAStatus('❌ Trình duyệt không hỗ trợ Nokia :>');
             }
         }
         
@@ -977,7 +1594,7 @@
             const remainingElement = document.getElementById('remainingAmount');
             remainingElement.style.color = remaining < 0 ? '#e74c3c' : '#2ecc71';
             
-            saveData();
+            saveUserData();
         }
         
         function renderExpensesTable() {
@@ -1051,18 +1668,6 @@
         function renderCategories() {
             const categoriesList = document.getElementById('categoriesList');
             
-            if (categories.length === 0) {
-                categories = [
-                    { id: "gym", name: "Tiền tập gym" },
-                    { id: "gas", name: "Tiền đổ xăng" },
-                    { id: "internet", name: "Tiền mạng 4G" },
-                    { id: "saving", name: "Tiền tích kiệm" },
-                    { id: "haircut", name: "Tiền cắt tóc" },
-                    { id: "food", name: "Ăn uống" },
-                    { id: "shopping", name: "Mua sắm" }
-                ];
-            }
-            
             let html = '';
             categories.forEach(category => {
                 html += `
@@ -1087,30 +1692,6 @@
                 option.textContent = category.name;
                 dropdown.appendChild(option);
             });
-        }
-        
-        function saveData() {
-            const data = {
-                monthlyLimit: monthlyLimit,
-                expenses: expenses,
-                categories: categories,
-                lastUpdated: new Date().toISOString()
-            };
-            localStorage.setItem('expenseManagerData', JSON.stringify(data));
-        }
-        
-        function loadData() {
-            try {
-                const savedData = localStorage.getItem('expenseManagerData');
-                if (savedData) {
-                    const data = JSON.parse(savedData);
-                    monthlyLimit = data.monthlyLimit || 0;
-                    expenses = data.expenses || [];
-                    categories = data.categories || [];
-                }
-            } catch (error) {
-                console.error("Lỗi load dữ liệu:", error);
-            }
         }
         
         // ========== EVENT HANDLERS ==========
@@ -1167,11 +1748,24 @@
             checkPWAStatus();
             updateOnlineStatus();
             
-            // Load dữ liệu
-            loadData();
-            updateSummary();
-            renderExpensesTable();
-            renderCategories();
+            // Kiểm tra đăng nhập
+            const savedUser = localStorage.getItem('currentUser');
+            if (savedUser) {
+                try {
+                    currentUser = JSON.parse(savedUser);
+                    // Tải lại thông tin người dùng từ users database
+                    if (users[currentUser.id]) {
+                        currentUser = users[currentUser.id];
+                        showMainApp();
+                    } else {
+                        showAuthForm();
+                    }
+                } catch (error) {
+                    showAuthForm();
+                }
+            } else {
+                showAuthForm();
+            }
             
             // Xử lý chuyển tab
             document.querySelectorAll('.tab-button').forEach(button => {
@@ -1286,13 +1880,139 @@
                 document.getElementById('newCategory').value = '';
             });
             
+            // Đăng nhập form
+            document.getElementById('loginFormElement').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = document.getElementById('loginEmail').value.trim();
+                const password = document.getElementById('loginPassword').value;
+                
+                if (login(email, password)) {
+                    showMainApp();
+                } else {
+                    showAuthMessage('loginMessage', 'Email/username hoặc mật khẩu không đúng!', 'error');
+                }
+            });
+            
+            // Đăng ký form
+            document.getElementById('registerFormElement').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const name = document.getElementById('registerName').value.trim();
+                const email = document.getElementById('registerEmail').value.trim();
+                const username = document.getElementById('registerUsername').value.trim();
+                const password = document.getElementById('registerPassword').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+                
+                // Validation
+                if (password !== confirmPassword) {
+                    showAuthMessage('registerMessage', 'Mật khẩu xác nhận không khớp!', 'error');
+                    return;
+                }
+                
+                if (password.length < 6) {
+                    showAuthMessage('registerMessage', 'Mật khẩu phải có ít nhất 6 ký tự!', 'error');
+                    return;
+                }
+                
+                const result = register(name, email, username, password);
+                if (result.success) {
+                    showAuthMessage('registerMessage', result.message, 'success');
+                    setTimeout(() => {
+                        showMainApp();
+                    }, 1500);
+                } else {
+                    showAuthMessage('registerMessage', result.message, 'error');
+                }
+            });
+            
+            // Đổi mật khẩu form
+            document.getElementById('changePasswordFormElement').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const currentPassword = document.getElementById('currentPassword').value;
+                const newPassword = document.getElementById('newPassword').value;
+                const confirmNewPassword = document.getElementById('confirmNewPassword').value;
+                
+                if (newPassword !== confirmNewPassword) {
+                    showAuthMessage('changePasswordMessage', 'Mật khẩu xác nhận không khớp!', 'error');
+                    return;
+                }
+                
+                const result = changePassword(currentPassword, newPassword);
+                if (result.success) {
+                    showAuthMessage('changePasswordMessage', result.message, 'success');
+                    setTimeout(() => {
+                        showMainApp();
+                    }, 1500);
+                } else {
+                    showAuthMessage('changePasswordMessage', result.message, 'error');
+                }
+            });
+            
+            // Toggle password visibility
+            document.querySelectorAll('.toggle-password').forEach(button => {
+                button.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
+                    const input = document.getElementById(targetId);
+                    const icon = this.querySelector('i');
+                    
+                    if (input.type === 'password') {
+                        input.type = 'text';
+                        icon.className = 'fas fa-eye-slash';
+                    } else {
+                        input.type = 'password';
+                        icon.className = 'fas fa-eye';
+                    }
+                });
+            });
+            
+            // Chuyển đổi giữa login và register
+            document.getElementById('showRegister').addEventListener('click', function(e) {
+                e.preventDefault();
+                showRegisterForm();
+            });
+            
+            document.getElementById('showLogin').addEventListener('click', function(e) {
+                e.preventDefault();
+                showLoginForm();
+            });
+            
+            document.getElementById('backToApp').addEventListener('click', function(e) {
+                e.preventDefault();
+                showMainApp();
+            });
+            
+            // User menu dropdown
+            document.getElementById('userButton').addEventListener('click', function() {
+                document.getElementById('userDropdown').classList.toggle('show');
+            });
+            
+            document.getElementById('changePasswordBtn').addEventListener('click', function() {
+                document.getElementById('userDropdown').classList.remove('show');
+                showChangePasswordForm();
+            });
+            
+            document.getElementById('logoutBtn').addEventListener('click', function() {
+                document.getElementById('userDropdown').classList.remove('show');
+                logout();
+            });
+            
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(event) {
+                const userMenu = document.getElementById('userMenu');
+                const userButton = document.getElementById('userButton');
+                const userDropdown = document.getElementById('userDropdown');
+                
+                if (!userMenu.contains(event.target) && userDropdown.classList.contains('show')) {
+                    userDropdown.classList.remove('show');
+                }
+            });
+            
             showNotification("Ứng dụng đã sẵn sàng!", "success");
         });
         
         // ========== EVENT LISTENERS ==========
         window.addEventListener('online', updateOnlineStatus);
         window.addEventListener('offline', updateOnlineStatus);
-        window.addEventListener('beforeunload', saveData);
+        window.addEventListener('beforeunload', saveUserData);
         
         // Kiểm tra PWA định kỳ
         setInterval(checkPWAStatus, 60000);
